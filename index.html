@@ -7,12 +7,411 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!--RESET-->
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">    
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FONT AWESOME -->
+    <script src="https://use.fontawesome.com/6d3c3b735c.js"></script>
 </head>
 <body>
-    
-    
-    <script src="js/scripts.js"></script>
+    <header class="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="main-logo">
+                        <a href="#">Sit <span>on</span> chair</a>
+                    </h1>
+                </div>
+                <div class="col-sm-6">
+                    <nav class="main-nav">
+                        <div class="hamburger-container clearfix" id='hamburger'>
+                            <div class="hamburger-icon">
+                            </div>
+                        </div>
+                        <ul class='' id='main-menu'>
+                            <li class='main-nav-item' id='about'>
+                                <a href="" class="">O firmie</a>
+                                <ul class="main-nav-submenu" id="submenu">
+                                    <li><a href="#">Aktualności</a></li>
+                                    <li><a href="#">Nasz team</a></li>
+                                    <li><a href="#">Historia</a></li>
+                                </ul>
+                            </li>
+                            <li class='main-nav-item'><a href="">Galeria</a></li>
+                            <li class='main-nav-item'><a href="">Kontakt</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div> <!--- end of row --->
+        </div> <!-- end of container --->
+    </header>
+
+    <!-- SECTION SLIDER -->
+    <section class="section-slider">
+        <div class="container">
+
+            <div class="slder">
+
+                <div class="slider-cnt">
+                    <button class='slider-button' id="right-btn">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </button>
+
+                    <button class="slider-btn" id="left-btn">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="slide active">
+
+                        <div class="slide-image">
+                            <img src="images/black_chair.png" alt="Our awesome black chair">
+                        </div>
+
+                        <div class="slide-cnt">
+                            <h4 class="slide-title">
+                                sit <strong>on</strong> our <strong>chair</strong>
+                            </h4>
+
+                            <div class="slide-text">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </p>
+                            </div>
+
+                            <a href="#" class="button">
+                                Learn more
+                            </a>
+                        </div>
+
+                    </div><!--end of slide-->
+
+                    <div class="slide">
+                        <div class="slide-image">
+                            <img src="images/red_chair.png" class="lower">
+                        </div>
+                        <div class="slide-cnt">
+                                <h4 class="slide-title">
+                                    Sit <strong>on</strong> our  <strong>chair</strong>
+                                </h4>
+
+                                <div class="slide-text">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                </div>
+
+                                <a href="#" class="button">Learn more</a>
+                        </div>
+
+                    </div><!-- end of slide -->
+                </div><!--end of div slider.cnt -->
+            </div><!--end of div .slider -->
+        </div><!--end of container-->
+    </section><!--end of section slider-->
+
+
+    <!-- SECTION PORTFOLIO -->
+    <section class="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <a href="#">
+                        <div class="box">
+                            <div class="box-filler clair"></div>
+                            <div class="box-label">Chair
+                                <span>Clair</span>
+                                <span class="line"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <a href="#">
+                        <div class="box">
+                            <div class="box-filler margarita"></div>
+                            <div class="box-label">Chair
+                                <span>Margarita</span>
+                                <span class="line"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <a href="#">
+                        <div class="box">
+                            <div class="box-filler"></div>
+                            <div class="box-label infobox">The title
+                                <span class="line"></span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            </div><!-- end of row -->
+        </div><!-- end of container -->
+    </section>
+
+    <!-- SECTION PRICELIST -->
+    <section class="section-pricelist">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="pricelist-title">
+                        <h4>Cennik</h4>
+                        <span class="line"></span>
+                    </div>
+                </div>
+            </row>
+            <div class="row">
+                <div class="cols-sm-12">
+                    <div class="pricelist-flexbox">
+
+                        <button class='pricelist-button' id="pricelist-right-btn">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </button>
+
+                        <button class='pricelist-button' id="pricelist-left-btn">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="box-wrapper" id='box-wrapper-1'>
+                            <div class="box">
+                                <div class="box-title">
+                                    Basic plan
+                                </div>
+
+                                <div class="box-price">
+                                    <p>85<span>99</span></p>
+                                    <p class="subscript">Pln/msc</p>
+                                </div>
+
+                                <div class="box-info">
+                                    <div class="box-info-1">Zakup towaru + dowóz</div>
+                                    <div class="box-info-2">Serwis</div>
+                                    <div class="box-info-3 empty">&nbsp;</div>
+                                    <div class="box-info-4 empty">&nbsp;</div>
+                                </div>
+
+                                <div class="box-btn">
+                                    <button>Dołącz</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-wrapper visuallyhidden" id='box-wrapper-2'>
+                            <div class="box">
+                                <div class="box-title">
+                                    Basic plan
+                                </div>
+
+                                <div class="box-price">
+                                    <p>85<span>99</span></p>
+                                    <p class="subscript">Pln/msc</p>
+                                </div>
+
+                                <div class="box-info">
+                                    <div class="box-info-1">Zakup towaru + dowóz</div>
+                                    <div class="box-info-2">Serwis</div>
+                                    <div class="box-info-3">Gwarancja 5 lat</div>
+                                    <div class="box-info-4 empty">&nbsp;</div>
+                                </div>
+
+                                <div class="box-btn">
+                                    <button>Dołącz</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-wrapper visuallyhidden" id="box-wrapper-3">
+                            <div class="box">
+                                <div class="box-title">
+                                    Basic plan
+                                </div>
+
+                                <div class="box-price">
+                                    <p>85<span>99</span></p>
+                                    <p class="subscript">Pln/msc</p>
+                                </div>
+
+                                <div class="box-info">
+                                    <div class="box-info-1">Zakup towaru + dowóz</div>
+                                    <div class="box-info-2">Serwis</div>
+                                    <div class="box-info-3">Gwarancja 6 lat</div>
+                                    <div class="box-info-4">Porady projektanta</div>
+                                </div>
+
+                                <div class="box-btn">
+                                    <button>Dołącz</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end of flexbox -->
+                </div><!-- end of col -->
+            </div><!-- end of row -->
+        </div><!-- end of container -->
+    </section>
+
+    <!-- SECTION APPLICATION-->
+    <section class="application ">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <section class="choice_part inline">
+                    <header>
+                        <h3>SKOMPONUJ SWOJE KRZESŁO</h3>
+                        <span class="green_bell"></span>
+                    </header>
+
+                    <div class="form">
+                        <div class="drop_down_list">
+                            <span class="list_label">Wybierz rodzaj</span>
+                            <span class="list_arrow"></span>
+                            <ul class="list_panel" data-category="chair-list">
+                                <li data-price="200">Clair</li>
+                                <li data-price="300">Margarita</li>
+                                <li data-price="400">Selena</li>
+                            </ul>
+                        </div>
+                        <div class="drop_down_list">
+                            <span class="list_label">Wybierz kolor</span>
+                            <span class="list_arrow"></span>
+                            <ul class="list_panel" data-category="color-list">
+                                <li data-price="0">Czerwony</li>
+                                <li data-price="0">Czarny</li>
+                                <li data-price="0">Pomarańczowy</li>
+                            </ul>
+                        </div>
+                        <div class="drop_down_list">
+                            <span class="list_label" data-category="pattern-list">Wybierz materiał</span>
+                            <span class="list_arrow"></span>
+                            <ul class="list_panel" data-category="pattern-list">
+                                <li data-price="0">Tkanina</li>
+                                <li data-price="400">Skóra</li>
+                            </ul>
+                        </div>
+                        <div class="checkbox check-box">
+                            <input type="checkbox" id="transport" data-transport-price="200">
+                            <label for="transport">Transport</label>
+                        </div>
+                        <!--<div class="checkbox"></div>-->
+                        <!--<span class="list_label inline_text">Transport</span>-->
+                    </div>
+                </section>
+            </div><!--end of col -->
+
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <section class="image_part inline">
+                    <img src="images/red_chair.png">
+                </section>
+            </div><!-- end of col -->
+
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <section class="summary_part inline">
+                    <header class="align_right">
+                        <h3>PODSUMOWANIE</h3>
+                        <span class="green_bell"></span>
+                    </header>
+
+                    <div class="summary_panel">
+                        <div class="panel_left">
+                            <h4 class="title" id='title-item'>Twój fotel</h4>
+                            <span class="color" id="color-span"></span>
+                            <span class="pattern" id="pattern-span"></span>
+                            <span class="transport" id="transport-span"></span>
+                        </div>
+                        <div class="panel_right">
+                            <h4 class="title value" id='title-price'></h4>
+                            <span class="color value" id="color-price"></span>
+                            <span class="pattern value" id="pattern-price"></span>
+                            <span class="transport value" id="transport-price"></span>
+                        </div>
+                        <div class="sum_label">SUMA</div>
+                        <div class="sum"><strong></strong></div>
+                    </div>
+                    <a href="" class="green_button">Zamawiam</a>
+                </section>
+            </div><!-- end of col -->
+        </div><!-- end of row -->
+    </div><!--end of container -->
+</section>
+
+    <!-- SECTION contact -->
+    <section class="section-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="contact-title">
+                        <h4>Kontakt<h4>
+                        <span class="line"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <form class='contact-form'>
+                    <div class="col-sm12 col-md-7">
+                        <div class="col-sm-12 innert">
+                            <input type="text" placeholder="Imię">
+                        </div>
+                        <div class="col-sm-12 innert">
+                            <input type="email" placeholder="Email">
+                        </div>
+                        <div class="col-sm-12 innert">
+                            <textarea placeholder="Wiadomość"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm12 col-md-4">
+                        <div class="col-sm-12 innert">
+                            <div class="contact-form-box">
+                                <img src="images/red_chair.png" alt="Our amazing red chair">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 innert">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span class="checkbox-icon"></span>
+                                <span class="checkbox-text">Wyrażam zgodę na przetwarzanie danych osobowych.</span>
+                            </label>
+                        </div>
+                            <input type="submit" value="Wyślij">
+                        <div class="col-sm-12 innert"></div>
+                    </div>
+                </form>
+            </div><!--end of row -->
+        </div><!-- end of container -->
+    </section>
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="copyright-box">
+                        <small>
+                            &copy; Copyright 2017 | All rights reserved - Sit on chair
+                        </small>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-sm-6">
+                        <div class="social-icon-box">
+                            <img src="images/twitter.png" alt="Twitter">
+                            <img src="images/flickr.png" alt="Flickr">
+                            <img src="images/pinterest.png" alt="Pinterest">
+                            <img src="images/vimeo.png" alt="Vimeo">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Sit <strong>on</strong> chair
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/menu_app.js" charset="utf-8"></script>
+    <script src="js/slider_app.js"></script>
+    <script src="js/pricelist_app.js" charset="utf-8"></script>
+    <script src="js/application_app.js" charset="utf-8"></script>
 </body>
 </html>

@@ -1,0 +1,121 @@
+.section-contact {
+    background-color: #fff;
+
+    .contact-title {
+        margin-top: 40px;
+
+        h4{
+            text-transform: uppercase;
+            font-size: 1.8rem;
+        }
+
+        .line {
+            display: block;
+            background-color: map-get($colors, accent-color);
+            height: 10px;
+            width: 50%;
+
+            @include tablet {
+                width: 33.3333%
+            };
+        }
+    }
+
+    .contact-form {
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 80%;
+            border: 1px solid map-get($colors, accent-color);
+            height: 4rem;
+            font-size: 1.8rem;
+            font-family: inherit;
+            font-weight: 400;
+            padding: 5px;
+            margin-bottom: 25px;
+            border-radius: 3px;
+
+            @include placeholder {
+                opacity: 0.5;
+                font-weight: 400;
+            }
+        }
+
+        textarea {
+            height: 11.4rem;
+        }
+
+        .contact-form-box {
+            text-align: center;
+            margin: 0 auto;
+            clear:both;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            transform: translateY(-10%);
+        }
+
+        .checkbox-label {
+            position: relative;
+            display: block;
+            height: 70px;
+
+            input {
+                opacity: 0;
+                &:checked ~ .checkbox-icon:before {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .checkbox-icon {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                border: 1px solid map-get($colors, accent-color);
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                &:before {
+                    display: block;
+                    content: '';
+                    position: absolute;
+                    top: 5px;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('../images/form_ok.jpg');
+                    background-repeat: no-repeat;
+                    opacity: 0;
+                    transform: scale(0.5);
+                    transition: all 0.3s linear;
+                }
+            }
+
+            .checkbox-text {
+                opacity: 0.5;
+                font-size: 1.2rem;
+                display: inline-block;
+                padding-left: 70px;
+                position: absolute;
+                top:0;
+            }
+        }
+
+        input[type="submit"]{
+            background-color: map-get($colors, accent-color);
+            color: #fff;
+            display: block;
+            width: 100%;
+            height: calc(9rem - 70px);
+            font-size: 2.2rem;
+            font-family: inherit;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+    }
+}

@@ -1,0 +1,111 @@
+.portfolio {
+    background-color: map-get($colors, portfolio-background-color);
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    .box {
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+        height: 45vw;
+        max-width: 328px;
+        max-height: 226px;
+
+        @include tablet {
+            margin: 0;
+            height: 235px;
+        }
+
+        .box-filler{
+            background-color: map-get($colors, portfolio-background-color);
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease-in-out;
+            &.clair {
+                background-image: url('../images/box1_img.jpg');
+            }
+
+            &.box-filler.margarita {
+                background-image: url('../images/box2_img.jpg');
+            }
+        }
+
+        &:hover {
+            .box-filler {
+                transform: scale(1.08);
+            }
+
+            .box-label {
+                right: -100%;
+
+                &.infobox {
+                    right:0
+                }
+            }
+        }
+
+        .box-label {
+            overflow: hidden;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: map-get($colors, portfolio-font-color);
+            font-weight: 600;
+            position: absolute;
+            height: 30%;
+            bottom: 10%;
+            right: 0;
+            padding: 5% 0 2% 5%;
+            text-indent: 1%;
+            font-size: 4vw;
+            transition: right 0.5s linear;
+
+            @media (min-width: 420px) {
+                font-size: 1rem;
+            }
+
+            span {
+                font-weight: inherit;
+                text-transform: uppercase;
+            }
+
+            .line {
+                display: block;
+                background-color: map-get($colors, accent-color);
+                width: 55%;
+                height: 30%;
+
+                @include tablet {
+                    height:10px;
+                }
+            }
+
+            &.infobox {
+                background-color: transparent;
+                width: 100%;
+                height: 100%;
+                padding: 10% 0 2% 5%;
+
+                .line {
+                    height: 6.1%;
+                    width: 55%;
+                    margin-bottom: 5%;
+
+                    @include tablet {
+                        height:10px;
+                    }
+                }
+
+                p {
+                    font-weight: normal;
+                    font-size: 3vw;
+
+                    @media (min-width: 420px) {
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

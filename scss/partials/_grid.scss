@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box; //required due to padding in columns
+}
+
+.container {
+
+    width: 100%;
+    max-width: 1040px; //max-width to avoide too high width on extra large screens
+    margin: 0 auto;
+
+    .row {
+        //clearfix
+        &:before,
+        &:after {
+            clear: both;
+            display: block;
+            content: '';
+        }
+
+        //base for every column
+        [class*="col-"] {
+            min-height: 1px;
+            float: left;
+            padding: 10px; //to avoid columns sticking each other
+            min-width: $single-column-width; //100%/12
+            &.innert {
+                padding:0;
+            }
+        }
+
+        //create grid, columns from col-1 to col-12 getting higher width - col-1 width is $single-colum-width, col-12 is 100%
+        //col-sm are columns for small devices (basic for mobile first)
+        //col-md are columns for medium devices
+        //col-lg are columns for large devices
+        @for $i from 1 through $columns {
+            .col-sm-#{$i} {
+                width: $single-column-width * $i;
+            }
+        }
+
+        @for $i from 1 through $columns {
+            .col-md-#{$i}{
+                @include tablet {
+                    width: $single-column-width * $i;
+                }
+            }
+        }
+
+        @for $i from 1 through $columns {
+            .col-lg-#{$i}{
+                @include laptop {
+                    width: $single-column-width * $i;
+                }
+            }
+        }
+
+    }
+}

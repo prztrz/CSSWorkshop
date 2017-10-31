@@ -1,0 +1,140 @@
+* {
+        background: none repeat scroll 0 0 transparent;
+        border: medium none;
+}
+
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.section-slider {
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 60%,rgba(225,225,225,1) 97%,rgba(225,225,225,1) 100%,rgba(246,246,246,1) 100%,rgba(225,225,225,1) 101%);
+    height: 585px;
+
+    .slider {
+        //position: relative;
+    }
+    .slider-cnt {
+        height: 538px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        button.slider-btn {
+            color: inherit;
+            /* cursor: default; */
+            line-height: normal;
+            overflow: visible;
+            padding: 0;
+            width: 0;
+            height: 0;
+            background: none repeat scroll 0 0 transparent;
+            border: medium none;
+        }
+
+        .fa.fa-angle-right {
+            position: absolute;
+            right: 0;
+            top: 45%;
+            font-size: 7vw;
+            color: map-get($colors, accent-color)
+        }
+
+        .fa.fa-angle-left {
+            position: absolute;
+            left: 0;
+            top: 45%;
+            font-size: 7vw;
+            color: map-get($colors, accent-color)
+        }
+    }
+
+    .slide {
+        position: absolute;
+        top: 8vw;
+        left: 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        border: 1px solid transparent;
+        height: 50%;
+        width: 80%;
+        max-width: 1040px;
+        //hide inactive slide
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+
+        //show active slide
+        &.active {
+            visibility: visible;
+            opacity: 1;
+            top: 10vw
+        }
+
+
+        @include tablet {
+            flex-direction: row;
+        };
+
+        .slide-image {
+            flex-grow: 1;
+            flex-basis: 200px;
+            border: 1px solid transparent;
+            text-align: center;
+
+            img {
+                max-width: 100%;
+                width: 90%;
+            }
+        }
+    }
+
+    .slide-cnt {
+        flex-grow: 1;
+        flex-basis: 200px;
+        align-self: flex-start;
+        display: flex;
+        flex-flow: column;
+
+        .slide-title {
+            font-size: 2rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 500;
+
+            strong {
+                font-weight: 600;
+                color: map-get($colors, accent-color);
+            }
+        }
+
+        .slide-text {
+            margin-top: 2vw;
+            line-height: 1.5rem;
+            text-align: center;
+            margin-bottom: 2vw;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            color: map-get($colors, header-font-color);
+            background-color: map-get($colors, accent-color);
+            text-transform: uppercase;
+            padding: 1vw;
+            font-size: 1.2rem;
+            width: 60%;
+            align-self: center;
+            border-radius: 5px;
+        }
+    }
+}

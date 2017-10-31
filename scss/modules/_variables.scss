@@ -1,0 +1,16 @@
+$columns: 12;
+$single-column-width: 100%/12;
+
+$colors:(
+    accent-color: #4ec3ad,
+    header-background-color: #000,
+    header-font-color: #fff,
+    button-font-color: #fff,
+    portfolio-background-color: #fff,
+    portfolio-font-color: #000,
+    pricelist-background-color: #f2f2f2,
+    pricelist-box-border-color: #d4d4d4,
+    pricelist-box-background-color: #f9f9f9);
+
+    $tablet-width: (min-width: 768px);
+    $laptop-width: (min-width: 1280px);
