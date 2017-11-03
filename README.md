@@ -47,8 +47,8 @@ Columns are `<div>` element with the class col-\*\*-XX  <br>
 
 XX (1-12) is the width the column takes on the screen. The sum of all columns in one row on the screen must be 12. The grid scales up so using .col-sm-XX classes gives the same effect on small and larger mobiles uness additional col-md and col-lg classes are attached to the div.
 
-For example:
-The code:
+For example:<br>
+The code:<br>
 `<div class="col-sm-12 col-md-6 col-lg-4"></div>`
 `<div class="col-sm-12 col-md-6 col-lg-4"></div>`
 `<div class="col-sm-12 col-md-12 col-lg-4"></div>`
