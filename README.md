@@ -49,9 +49,9 @@ XX (1-12) is the width the column takes on the screen. The sum of all columns in
 
 For example:<br>
 The code:<br>
-`<div class="col-sm-12 col-md-6 col-lg-4"></div>`
-`<div class="col-sm-12 col-md-6 col-lg-4"></div>`
-`<div class="col-sm-12 col-md-12 col-lg-4"></div>`
+`<div class="col-sm-12 col-md-6 col-lg-4"></div>
+<div class="col-sm-12 col-md-6 col-lg-4"></div>
+<div class="col-sm-12 col-md-12 col-lg-4"></div>`
 
 Represent three columns which will be placed next to each other on large devices. On medium devices first two collumns will be placed next to each other whereas third collumn will be placed in the next row. On small devices all columns will be placed in separate rows.
 
