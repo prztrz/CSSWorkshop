@@ -17,30 +17,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     /**
-     * Object
-     * @name globalPrice
-     * Represents full price of the user's order, based on the  fields titlePrice, colorPrice, patternPrice and transportPrice representinc price of chair model, price of given color, pattern and transport respectively
-     */
+    * Object
+    * @name globalPrice
+    *   Represents full price of the user's order, based on the  fields titlePrice, colorPrice, patternPrice and transportPrice representinc price of chair model, price of given color, pattern and transport respectively.
+    * @function calculate
+    *   Sums titlePrice colorPrice patternPrice and transportPrice
+    *   @returns {number} full price of the user's order
+    */
+
 
     var globalPrice = {
         titlePrice: 0,
         colorPrice: 0,
         patternPrice: 0,
         transportPrice: 0,
-        /** @function calculate
-         * Sums every value of @name globalPrice object if type of the value is number
-         * @returns {number} full price of the user's order
-         */
         calculate: function () {
-            var values = Object.values(this);
-            var result = 0;
-            values.forEach(function(x){
-                if (typeof x === 'number') {
-                    result += x;
-                }
-            });
-
-            return result;
+            return this.titlePrice + this.colorPrice + this.patternPrice + this.transportPrice;
         }
     }
 
@@ -145,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
             //put the 'Transport' string to corresponding DOM object in summaryPannel
             transportSpan.innerText = 'Transport';
             //put the transport price to corresponding DOM object in summaryPannel
-            transportPrice.innerText = currentPrice.toString();
+            transportPrice.innerText = currentPrice;
 
 
         // if the checkbox is unchecked due to the click
