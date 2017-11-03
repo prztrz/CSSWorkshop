@@ -50,9 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
     */
     for (var i = 0; i < listArrows.length; i++) {
         listArrows[i].addEventListener("click", function() {
-            /**
-             * @this object DOM with .listArrows class
-             */
+
             var currentList = this.parentElement.querySelector('.list_panel');
             var currentListClasses = currentList.classList;
 
@@ -98,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         currentLabel.style.color = '#000';
                     }
 
-                    /** Dependind on value of data-category attribute of clicked list change the corresponding fields in summary pannel and corresponding field of globalPrice object.
+                    /** Dependingon value of data-category attribute of clicked list change the corresponding fields in summary pannel and corresponding field of globalPrice object.
                     *
                     */
                     switch (currentCategory) {
@@ -147,7 +145,8 @@ document.addEventListener("DOMContentLoaded", function() {
             //put the 'Transport' string to corresponding DOM object in summaryPannel
             transportSpan.innerText = 'Transport';
             //put the transport price to corresponding DOM object in summaryPannel
-            transportPrice.innerText = currentPrice;
+            transportPrice.innerText = currentPrice.toString();
+
 
         // if the checkbox is unchecked due to the click
         } else {
@@ -157,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
             transportSpan.innerText = '';
             transportPrice.innerText = '';
         }
-        
+
         // put calculated global price of order to sum DOM object
         sum.innerText = globalPrice.calculate();
     });
