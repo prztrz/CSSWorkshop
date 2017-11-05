@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
      hamburger.addEventListener("click", function() {
 
          // set the transistion effect on #main-menu width
-         mainMenu.style.transition = 'width 0.5s linear';
+         mainMenu.style.transition = 'width 0.2s linear';
 
          //toggle class .active on #main-menu element to show/hide main menu
          menuClasses.toggle('active');
