@@ -93,11 +93,19 @@
                 }
           }
 
-      .image_part img {
+      .image_part {
+          display: none;
+
+          @include laptop {
+              display: inherit;
+          }
+
+          img {
               max-width: 100%;
               margin-top: 110px;
               margin-left: 38px;
-              }
+         }
+      }
 
       .green_bell {
             background-color: #24baa0;
