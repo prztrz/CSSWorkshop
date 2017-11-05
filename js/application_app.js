@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     //get elements
+    var width = window.innerWidth;
     var listArrows = document.querySelectorAll(".list_arrow");
 
     var summaryTitle = document.getElementById("title-item");
@@ -13,7 +14,20 @@ document.addEventListener("DOMContentLoaded", function() {
     var patternPrice = document.getElementById("pattern-price");
     var transportPrice = document.getElementById("transport-price");
 
+    var summaryHeader = document.querySelector(".summary_part header");
+
     var sum = document.querySelector(".sum > strong");
+
+    var tablet = window.matchMedia('(min-width: 768px)');
+
+
+    if (width > 767) {
+        summaryHeader.classList.add('align_right');
+    }
+
+    tablet.addListener(function(tablet) {
+        tablet.matches ? summaryHeader.classList.add('align_right') : summaryHeader.classList.remove('align_right');
+    });
 
 
     /**
