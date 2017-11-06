@@ -1,45 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    //get elements
-    var width = window.innerWidth;
-    var listArrows = document.querySelectorAll(".list_arrow");
-
-    var summaryTitle = document.getElementById("title-item");
-    var colorSpan = document.getElementById("color-span");
-    var patternSpan = document.getElementById("pattern-span");
-    var transportSpan = document.getElementById("transport-span");
-    var transportCheckBox = document.getElementById("transport");
-
-    var titlePrice = document.getElementById("title-price");
-    var colorPrice = document.getElementById("color-price");
-    var patternPrice = document.getElementById("pattern-price");
-    var transportPrice = document.getElementById("transport-price");
-
-    var summaryHeader = document.querySelector(".summary_part header");
-
-    var sum = document.querySelector(".sum > strong");
-
-    var tablet = window.matchMedia('(min-width: 768px)');
-
-
-    if (width > 767) {
-        summaryHeader.classList.add('align_right');
-    }
-
-    tablet.addListener(function(tablet) {
-        tablet.matches ? summaryHeader.classList.add('align_right') : summaryHeader.classList.remove('align_right');
-    });
-
-
     /**
-    * Object
-    * @name globalPrice
-    *   Represents full price of the user's order, based on the  fields titlePrice, colorPrice, patternPrice and transportPrice representinc price of chair model, price of given color, pattern and transport respectively.
-    * @function calculate
-    *   Sums titlePrice colorPrice patternPrice and transportPrice
-    *   @returns {number} full price of the user's order
+    * Represents global price of the user's order
     */
-
-
     var globalPrice = {
         titlePrice: 0,
         colorPrice: 0,
@@ -51,119 +13,220 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    /**add click event to all elements with .list_arrow class
-    * @listens click
+    /**
+    * @function toggleHeaderAlignRight
+    * Adds class .align right to header of .summary_part element if the window.innerWidth does not reach tablet breakpoint (min-width: 767px) and removes it if the window.innerWidth reach the breakpoint
     */
-    for (var i = 0; i < listArrows.length; i++) {
-        listArrows[i].addEventListener("click", function() {
+    function toggleHeaderAlignRight () {
+        var width = window.innerWidth;
+        var tablet = window.matchMedia('(min-width: 768px)');
+        var summaryHeader = document.querySelector(".summary_part header");
 
-            var currentList = this.parentElement.querySelector('.list_panel');
-            var currentListClasses = currentList.classList;
+        if (width > 767) {
+            summaryHeader.classList.add('align_right');
+        }
 
-            var currentListItems = currentList.children;
-
-            currentListClasses.toggle('visible')
-
-            /** add click event to every <li> object which is the child of the same parent as @this
-             * @listens click
-             */
-            for (var i = 0; i < currentListItems.length; i++) {
-                currentListItems[i].addEventListener("click", function() {
-                    var currentClasses = this.classList;
-
-                    /** Represents every <li> item with the same parent including the clicked item
-                     *  @this object <li>
-                     */
-                    var siblingItems = this.parentElement.children;
-
-                    //Label of list the clicked elements is part of.
-                    var currentLabel = this.parentElement.parentElement.firstElementChild;
-
-                    //Represents the value of data-price attribute of clicked <li> object
-                    var currentPrice = this.dataset.price;
-
-                    //Represents the value of data-category attribute of clicked <li> object
-                    var currentCategory = this.parentElement.dataset.category;
-
-                    //If the clicked <li> does not have .selected class
-                    if (Array.from(currentClasses).indexOf('selected') === -1) {
-                        //remove selected class from all <li> objects of the same parent
-                        for (var i = 0; i < siblingItems.length; i++) {
-                            siblingItems[i].classList.remove('selected');
-                        }
-
-                        /**add .selected class to @this
-                        *
-                        */
-                        currentClasses.add('selected');
-
-                        //Put innerText of selected item to the label and change its color to #000
-                        currentLabel.innerText = this.innerText;
-                        currentLabel.style.color = '#000';
-                    }
-
-                    /** Dependingon value of data-category attribute of clicked list change the corresponding fields in summary pannel and corresponding field of globalPrice object.
-                    *
-                    */
-                    switch (currentCategory) {
-                        case 'chair-list':
-                            summaryTitle.innerText = this.innerHTML;
-                            titlePrice.innerText = this.dataset.price;
-                            globalPrice.titlePrice = parseInt(currentPrice);
-                        break;
-
-                        case 'color-list':
-                            colorSpan.innerText = this.innerHTML;
-                            colorPrice.innerText = this.dataset.price;
-                            globalPrice.colorPrice = parseInt(currentPrice);
-                        break;
-
-                        case 'pattern-list':
-                            patternSpan.innerText = this.innerHTML;
-                            patternPrice.innerText = this.dataset.price;
-                            globalPrice.patternPrice = parseInt(currentPrice);
-                        break;
-                    }
-
-                    // put calculated global price of order to sum DOM object
-                    sum.innerText = globalPrice.calculate();
-
-                    //drop up the clicked <ul> list
-                    currentListClasses.remove('visible');
-
-
-                });
-            }
+        tablet.addListener(function(tablet) {
+            tablet.matches ? summaryHeader.classList.add('align_right') : summaryHeader.classList.remove('align_right');
         });
     }
 
-    /** add click event to check box with transport
-     * @listens click
-     */
-    transportCheckBox.addEventListener("click", function() {
-        //represents the value of data-transport-price attribute of the clicked checkbox
-        var currentPrice = this.dataset.transportPrice;
 
-        //if the checkbox is checked due to the click
-        if (transportCheckBox.checked) {
-            //put the value of data-transport-price attribute to the corresponding field in globalPrice object
-            globalPrice.transportPrice = parseInt(currentPrice);
-            //put the 'Transport' string to corresponding DOM object in summaryPannel
-            transportSpan.innerText = 'Transport';
-            //put the transport price to corresponding DOM object in summaryPannel
-            transportPrice.innerText = currentPrice;
+    /**
+    * @function toggleListItemsVisibility
+    * toggles class .visible on <li> objects.
+    * @param {object} it - DOM object
+    */
+    function toggleListItemsVisibility (it) {
+        var currentList = it.parentElement.querySelector('.list_panel');
+        var currentListClasses = currentList.classList;
+
+        currentListClasses.toggle('visible');
+    }
 
 
-        // if the checkbox is unchecked due to the click
+    /**
+    * @function isSelected
+    * @param {string} element DOM object
+    * @returns {boolean} true if element object contains .selected class and false if not
+    */
+    function isSelected (element) {
+        if (element.classList.contains('selected')) {
+            return true;
         } else {
-            // set transport price to 0
-            globalPrice.transportPrice = 0;
-            //remove strings from corresponding DOM objects
-            transportSpan.innerText = '';
-            transportPrice.innerText = '';
+            return false;
+        }
+    }
+
+
+    /**
+    * @function switchSelection
+    * removes .selected class from all <li> of the current list and adds .selected class to the clicked <li>
+    * @param {object} element DOM object
+    */
+    function switchSelection(element) {
+        var listItems = element.parentElement.children;
+
+        for (var i = 0; i < listItems.length; i++) {
+            listItems[i].classList.remove('selected')
         }
 
-        // put calculated global price of order to sum DOM object
+        element.classList.add('selected');
+    }
+
+
+    /**
+    * @function updateLabel()
+    * Switches the the innerText of .list_label element to currently selected list item.
+    * @param {object} it - DOM object passed to the function
+    */
+    function updateLabel(it) {
+        var currentLabel = it.parentElement.parentElement.firstElementChild;
+        currentLabel.innerText = it.innerText;
+        currentLabel.style.color = '#000';
+    }
+
+
+    /**
+    *  @function updateSummaryPanelFields
+    * Changes the innerText fields of corresponding element with .summary_panel class depending on selected item
+    * @param {object} it - DOM object passed to the function
+    * @param {string} category - value of attribute data-category of it
+    */
+    function updateSummaryPanelFields(it, category) {
+
+        var summaryTitle = document.getElementById("title-item");
+        var titlePrice = document.getElementById("title-price");
+
+        var colorSpan = document.getElementById("color-span");
+        var colorPrice = document.getElementById("color-price");
+
+        var patternSpan = document.getElementById("pattern-span");
+        var patternPrice = document.getElementById("pattern-price");
+
+        var transportSpan = document.getElementById("transport-span");
+        var transportPrice = document.getElementById("transport-price");
+
+        var sum = document.querySelector(".sum > strong");
+
+        switch (category) {
+            case 'chair-list':
+                summaryTitle.innerText = it.innerHTML;
+                titlePrice.innerText = it.dataset.price;
+                globalPrice.titlePrice = parseInt(it.dataset.price);
+            break;
+
+            case 'color-list':
+                colorSpan.innerText = it.innerHTML;
+                colorPrice.innerText = it.dataset.price;
+                globalPrice.colorPrice = parseInt(it.dataset.price);
+            break;
+
+            case 'pattern-list':
+                patternSpan.innerText = it.innerHTML;
+                patternPrice.innerText = it.dataset.price;
+                globalPrice.patternPrice = parseInt(it.dataset.price);
+            break;
+
+            case 'transport':
+                transportSpan.innerText = 'Transport';
+                transportPrice.innerText = it.dataset.price;
+                globalPrice.transportPrice = parseInt(it.dataset.price);
+        }
+
         sum.innerText = globalPrice.calculate();
-    });
+    }
+
+
+    /**
+    * @function resetSummaryPanelFields
+    * Clears fields of element with .summary_panel clas if list item was unchecked
+    * @param {object} it  DOM object passed to the function
+    * @param {string} category - value of attribute data-category of it
+    */
+    function resetSummaryPanelFields(it, category) {
+
+        var summaryTitle = document.getElementById("title-item");
+        var titlePrice = document.getElementById("title-price");
+
+        var colorSpan = document.getElementById("color-span");
+        var colorPrice = document.getElementById("color-price");
+
+        var patternSpan = document.getElementById("pattern-span");
+        var patternPrice = document.getElementById("pattern-price");
+
+        var transportSpan = document.getElementById("transport-span");
+        var transportPrice = document.getElementById("transport-price");
+
+        var sum = document.querySelector(".sum > strong");
+
+        switch (category) {
+            case 'chair-list':
+                summaryTitle.innerText = '';
+                titlePrice.innerText = '';
+                globalPrice.titlePrice = 0;
+            break;
+
+            case 'color-list':
+                colorSpan.innerText = '';
+                colorPrice.innerText = '';
+                globalPrice.colorPrice = 0;
+            break;
+
+            case 'pattern-list':
+                patternSpan.innerText = '';
+                patternPrice.innerText = '';
+                globalPrice.patternPrice = 0;
+            break;
+
+            case 'transport':
+                transportSpan.innerText = '';
+                transportPrice.innerText = '';
+                globalPrice.transportPrice = 0;
+        }
+
+        sum.innerText = globalPrice.calculate();
+    }
+
+
+    /**
+    * @function runApplication
+    * runs application of section with .application class
+    */
+    function runApplication () {
+        var listArrows = document.querySelectorAll(".list_arrow");
+        var listItems = document.querySelectorAll(".form li");
+        var transportCheckBox = document.getElementById("transport");
+
+        for (var i = 0; i < listArrows.length; i++) {
+            listArrows[i].addEventListener("click", function () {
+                toggleListItemsVisibility(this);
+            })
+        }
+
+        for (var i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener("click", function() {
+                if (!isSelected(this)) {
+                    switchSelection(this);
+                    updateLabel(this);
+                    updateSummaryPanelFields(this, this.parentElement.dataset.category)
+                }
+
+                toggleListItemsVisibility(this.parentElement);
+
+            })
+        }
+
+        transportCheckBox.addEventListener("click", function() {
+            if (this.checked) {
+                updateSummaryPanelFields(this, this.dataset.category);
+            } else {
+                resetSummaryPanelFields(this, this.dataset.category);
+            }
+        });
+
+    }
+
+    runApplication();
+
 });
