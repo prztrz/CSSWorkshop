@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     /**
     * @function updateLabel()
     * Switches the the innerText of .list_label element to currently selected list item.
-    * @param {object} it - DOM object passed to the function
+    * @param {object} it - DOM object
     */
     function updateLabel(it) {
         var currentLabel = it.parentElement.parentElement.firstElementChild;
@@ -88,9 +88,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     /**
-    *  @function updateSummaryPanelFields
-    * Changes the innerText fields of corresponding element with .summary_panel class depending on selected item
-    * @param {object} it - DOM object passed to the function
+    * @function updateSummaryPanelFields
+    * Changes the innerText fields of corresponding element in .summary_panel class depending on selected item
+    * @param {object} it - DOM object passed to the function - item with .selected class
     * @param {string} category - value of attribute data-category of it
     */
     function updateSummaryPanelFields(it, category) {
@@ -140,8 +140,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /**
     * @function resetSummaryPanelFields
-    * Clears fields of element with .summary_panel clas if list item was unchecked
-    * @param {object} it  DOM object passed to the function
+    * Clears fields of element in .summary_panel class if list item was unchecked
+    * @param {object} it  DOM object passed to the function - list item with .selected class
     * @param {string} category - value of attribute data-category of it
     */
     function resetSummaryPanelFields(it, category) {
@@ -192,6 +192,8 @@ document.addEventListener("DOMContentLoaded", function() {
     /**
     * @function runApplication
     * runs application of section with .application class
+    * Listens 'click' event on elements with .list_arrow class
+    * Listens 'click event on <li> elements inside element with .form class
     */
     function runApplication () {
         var listArrows = document.querySelectorAll(".list_arrow");
