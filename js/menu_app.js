@@ -1,69 +1,117 @@
-document.addEventListener("DOMContentLoaded", function() {
-    //get menu elements
-    var hamburger = document.getElementById("hamburger");
-    var mainMenu = document.getElementById("main-menu");
-    var about = document.getElementById("about");
-    var droppableLink = about.firstElementChild;
-    var submenu = document.getElementById("submenu");
-
-    //Class lists of menu elements
-    var menuClasses = mainMenu.classList;
-    var aboutClasses = about.classList;
-    var droppableLinkClasses = droppableLink.classList;
-    var submenuClasses = submenu.classList;
-
-    //Laptop media query
-	var laptop = window.matchMedia('(min-width: 1280px)');
+document.addEventListener('DOMContentLoaded', function(e){
 
     /**
-     * @listens matchMedia laptop
+    * @function removeClass 
+    * removes specified class from specified element(s)
+    * @param {string} classString - class
+    * @param {Array} elements - DOM object array
+    */
+    function removeClass(classString, ...elements) {
+        elements.forEach(function(el) {
+            el.classList.remove(classString)
+        })
+    }
+
+
+    /**
+     * @function toggleClass 
+     * toggles specified class on specified element(s)
+     * @param {string} classString - class
+     * @param {Array} elements - DOM object array
      */
-	laptop.addListener(function(laptop) {
+    function toggleClass(classString, ...elements) {
+        elements.forEach(function(el) {
+            el.classList.toggle(classString)
+        })
+    }
 
-		//If laptop window width is detected
-		if (laptop.matches) {
-			//remove .active classes from menu and submenu elements showing the navigation menu on small devices
-			menuClasses.remove('active');
-			aboutClasses.remove('active');
-			droppableLinkClasses.remove('active');
-			submenuClasses.remove('active');
-
-			//set transistion:none to #main-menu element to prevent the transition effect on #main-menu width when laptop widnow width is resized to smaller devices width
-			mainMenu.style.transition = 'none';
-
-		}
-
-	});
-
-    /** Adds click event on hamburger menu icon
-     * @listens click
+    /**
+     * @function removeActiveOnLaptop
+     * removes transition effects and .active class from all collapsable menu elements to hide them if laptop window-width is reached
      */
-     hamburger.addEventListener("click", function() {
+    function removeActiveOnLaptop() {
+        var laptop = window.matchMedia('(min-width: 1280px');
 
-         // set the transistion effect on #main-menu width
-         mainMenu.style.transition = 'width 0.2s linear';
+        laptop.addListener(function(laptop){
 
-         //toggle class .active on #main-menu element to show/hide main menu
-         menuClasses.toggle('active');
+        var menu = document.getElementById("main-menu");
+        var about = document.getElementById('about');
+        var droppableLink = document.querySelector('.droppable-link');
+        var submenu = document.getElementById('submenu');
 
-         //if .active class was removed from main-menu elements remove .active class from all of its children elements to hide them
-         if (Array.from(menuClasses).indexOf('active') === -1) {
-             aboutClasses.remove('active');
-             droppableLinkClasses.remove('active');
-             submenuClasses.remove('active');
-         }
-     });
+       
+           if (laptop.matches) {
+                removeClass('active', menu, about,droppableLink, submenu);
+           }
+       });
+    }
 
-     /** Adds click event on link containing submenu
-     *  @listens click
+
+    /**
+     * @function toggleMenuTransitionEffect
+     * Sets the transistion effect on #main-menu element off if the laptop window-width is reached and sets it on 
      */
-     droppableLink.addEventListener('click', function(e) {
-         e.preventDefault();
+    function toggleMenuTransistionEffect() {
+        var laptop = window.matchMedia('(min-width: 1280px');
 
-         //toggle class .active on submenu elements to show/hide submenu
-         aboutClasses.toggle('active');
-         droppableLinkClasses.toggle('active');
-         submenuClasses.toggle('active');
-     })
+        laptop.addListener(function(laptop){
+            var menu = document.getElementById("main-menu");
 
-});
+            if (laptop.matches) {
+                menu.style.transition = 'none';
+            }
+
+        });
+    }
+
+  
+
+    /**
+     * @function switchMenu
+     * toggles .active class on #main-menu element to show/hide it and removes .active class from submenu elements to hide them if menu does not contain .active class
+     */
+    function switchMenu() {
+        var menu = document.getElementById('main-menu');
+        var about = document.getElementById('about');
+        var droppableLink = document.querySelector('.droppable-link');
+        var submenu = document.getElementById('submenu');
+
+        menu.style.transition = 'width 0.2s linear';
+
+        toggleClass('active', menu);
+
+        if (!menu.classList.contains('active')) {
+           removeClass('active', about, droppableLink, submenu)
+        }
+    }
+
+    /**
+    * @function switchSubenu
+    * toggles .active class on submenu elements to show/hide them
+    */
+    function switchSubmenu() {
+        var about = document.getElementById('about');
+        var droppableLink = document.querySelector('.droppable-link');
+        var submenu = document.getElementById('submenu');
+
+        toggleClass('active', about, droppableLink, submenu);
+    }
+
+    function runMenuApp() {
+        var hamburger = document.getElementById("hamburger");
+        var droppableLink = document.querySelector('.droppable-link');
+
+        hamburger.addEventListener('click', switchMenu);
+
+        droppableLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            switchSubmenu();
+        });
+
+    }
+
+    removeActiveOnLaptop();
+    toggleMenuTransistionEffect();
+    runMenuApp();
+
+})
