@@ -1,130 +1,199 @@
-document.addEventListener("DOMContentLoaded", function() {
-    //get window width
-	var initialWidth = window.innerWidth;
-
-    //get pricelist elements
-	var boxWrappers = document.querySelectorAll(".box-wrapper");
-	var joinBtns = document.querySelectorAll(".box-btn button");
-	var priceListRightBtn = document.getElementById("pricelist-right-btn");
-	var priceListLeftBtn = document.getElementById("pricelist-left-btn");
-
-    //Tablet media query
-	var tablet = window.matchMedia ('(min-width: 768px)')
+document.addEventListener('DOMContentLoaded', function(e) {
+    
+    /**
+     * @function getInitialWidth
+     * @returns {number} window.innerWidth initial width of window
+     */
+    function getInitialWidth() {
+        return window.innerWidth
+    }
+    
 
     /** @function showBoxWrappersOnBigDevices
-     * Remove .visuallyhidden class from .box-wrapper elements to show them if the initial window with is more than 767px
-     * @param {number} width The initial width of window
-     */
-    var showBoxWrappersOnBigDevices = function(width) {
+    * Remove .visuallyhidden class from all .box-wrapper elements to show them if the initial window with is more than 767px
+    * @param {number} width The innerWidth of window
+    */
+    function showBoxWrappersOnBigDevices (width) {
+        var boxWrappers = document.querySelectorAll('.box-wrapper');
+
         if (width > 767) {
-            for (var i = 0; i < boxWrappers.length; i++) {
-                boxWrappers[i].classList.remove('visuallyhidden')
-            }
+            [].forEach.call(boxWrappers, function(wrapper) {
+                wrapper.classList.remove('visuallyhidden')
+            })
         }
+
     }
 
-    /** run @function showBoxWrappersOnBigDevices
-     * @argument {number} initialWidth Initial window width
-     */
-    showBoxWrappersOnBigDevices(initialWidth);
 
     /**
-     * @listens matchMedia tablet
+     * @function toggleWrappersVisibility
+     * Remove .visuallyhidden class from .box-wrapper elements to show them when tablet window width is reached and adds .visuallyhidden class to .box-wrapper elements except the first one to hide them when tablet window width is not reached
      */
-	tablet.addListener(function(tablet) {
+    function toggleWrappersVisibility() {
+        var tablet = window.matchMedia('(min-width: 768px)');
+        var boxWrappers = document.querySelectorAll('.box-wrapper');
 
-		//remove .visuallyhidden class from pricelist boxWrappers to show them on tablet and wider screens
-		if (tablet.matches) {
-			for (var i = 0; i < boxWrappers.length; i++) {
-				boxWrappers[i].classList.remove('visuallyhidden') ;
-			}
-		// if tablet don't march add .visuallyhidden class to all boxWrappers except the first one
-		} else {
-			for (var i = 1; i < boxWrappers.length; i++) {
-				boxWrappers[i].classList.add('visuallyhidden') ;
-			}
-		}
-	});
-
-
-    for (var i = 0; i < joinBtns.length; i++) {
-
-        /**Add click event on joinBtns
-         * @listens click
-         */
-        joinBtns[i].addEventListener("click", function() {
-            /**get box wraper parent of clicked joinBtn
-                @this joinBtn
-            */
-            var currentBoxWrapper = this.parentElement.parentElement.parentElement;
-            //get array of classes of currentBoxWrapper
-            var currentWrapperClasses = Array.from(currentBoxWrapper.classList);
-            //if there is no .active class on currentBoxWrapper
-            if (currentWrapperClasses.indexOf('active') === -1) {
-                //remove .active class from all boxWrappers
-                for (var i = 0; i < boxWrappers.length; i++) {
-                    boxWrappers[i].classList.remove('active')
-                }
-
-                //then add .active class on currentBoxWrapper
-                currentBoxWrapper.classList.add('active')
+        tablet.addListener(function(tablet) {
+            if (tablet.matches) {
+                [].forEach.call(boxWrappers, function(wrapper) {
+                    wrapper.classList.remove('visuallyhidden')
+                });
+            } else {
+                [].forEach.call(boxWrappers, function(wrapper, i) {
+                    if(i!==0)
+                    wrapper.classList.add('visuallyhidden')
+                });
             }
         });
     }
 
-    /**add click event on pricelist right button
-    *   @listens click
+
+        /**
+    * @function removeClass 
+    * removes specified class from specified element(s)
+    * @param {string} classString - class
+    * @param {Array} elements - DOM object array
     */
-	priceListRightBtn.addEventListener("click", function() {
-        //set the wrapper on witch button was clicked and the next wrapper indexes to 0
-		var currentWrapperIndex = 0;
-		var nextWrapperIndex = 0;
+    function removeClass(classString, ...elements) {
+        elements.forEach(function(el) {
+            el.classList.remove(classString)
+        })
+    }
 
-        //Find the index of current visible wrapper (the one without .visuallyhidden class) and set adjust currentWrapperIndex to it
-		for (var i = 0; i < boxWrappers.length; i++) {
-			if (Array.from(boxWrappers[i].classList).indexOf('visuallyhidden') === -1) {
-				currentWrapperIndex = i;
-			}
-		}
+    /**
+     * @function switchClass
+     * Removes specified class from all given node element collections and adds this class to given element from this collection
+     * @param {string} classString -name of class
+     * @param {object} currentElement - element the clas is added to
+     * @param {object} elements - collection of elements the class is removed from
+     */
+    function switchClass(classString, currentElement, elements) {
+        
+        if (!currentElement.classList.contains(classString)) {
+            [].forEach.call(elements, function(element) {
+                removeClass(classString, element);
+            });
 
-        //if currentWrapperIndex is not the highest index in the boxWrappers pseudoarray set nextWrapperIndex to currentWrapperIndex +1
-		if (currentWrapperIndex !== boxWrappers.length - 1) {
-			var nextWrapperIndex = currentWrapperIndex+1
-		}
+            currentElement.classList.add(classString);
+        }
+    }
 
-        //hide current visible wrapper by adding class .visuallyhidden to its classList
-		boxWrappers[currentWrapperIndex].classList.add('visuallyhidden');
 
-        //show next wrapper by removing class .visuallyhidden from it
-		boxWrappers[nextWrapperIndex].classList.remove('visuallyhidden');
-	});
+    /**
+     * @class Slider
+     * Represent sliders working by adding and removing specific class between slided elements
+     * @method constructor
+     * @param {object} collection - node collection of slided elements
+     * @param {string} switchableClass - name of class switched trough collection
+     * @param {boolean} classActivate - true if adding switchableClass shows the slided element adn false if it hides it.
+     * 
+     * @method slideRight
+     * Shows next slide from the right side
+     * 
+     * @method slideLeft
+     * Shows next slide from the left side;
+     */
+    class Slider {
+        constructor (collection, switchableClass, classActivate) {
+            this.collection = collection;
+            this.switchableClass = switchableClass;
+            this.classActivate = classActivate;
+        }
 
-    /**add click event on pricelist left button
-    *   @listens click
-    */
-	priceListLeftBtn.addEventListener("click", function() {
-        /**add click event on pricelist right button
-        *   @listens click
-        */
-		var currentWrapperIndex = 0;
-		var nextWrapperIndex = boxWrappers.length-1;
+        slideRight() {
+            var currentElementIndex = 0;
+            var nextElementIndex = 0;
 
-        //Find the index of current visible wrapper (the one without .visuallyhidden class) and set adjust currentWrapperIndex to it
-		for (var i = 0; i < boxWrappers.length; i++) {
-			if (Array.from(boxWrappers[i].classList).indexOf('visuallyhidden') === -1) {
-				currentWrapperIndex = i;
-			}
-		}
+            if (this.classActivate) {
+                [].forEach.call(this.collection, (element, i) => {
+                    if (element.classList.contains(this.switchableClass)){
+                        currentElementIndex = i;
+                    }
+                })
 
-        //if currentWrapperIndex is not 0 set nextWrapperIndex to currentWrapperIndex -1
-		if (currentWrapperIndex !== 0) {
-			var nextWrapperIndex = currentWrapperIndex-1
-		}
+            } else {
+                [].forEach.call(this.collection, (element, i) => {
+                    if (!element.classList.contains(this.switchableClass)){
+                        currentElementIndex = i;
+                    }
+                });
+            }
 
-        //hide current visible wrapper by adding class .visuallyhidden to its classList
-		boxWrappers[currentWrapperIndex].classList.add('visuallyhidden');
+            if (currentElementIndex !== this.collection.length-1) {
+                nextElementIndex = currentElementIndex +1
+            }
 
-        //show next wrapper by removing class .visuallyhidden from it
-		boxWrappers[nextWrapperIndex].classList.remove('visuallyhidden');
-	});
+
+            if(this.classActivate) {
+                this.collection[currentElementIndex].classList.remove(this.switchableClass);
+                this.collection[nextElementIndex].classList.add(this.switchableClass);
+            } else {
+                this.collection[currentElementIndex].classList.add(this.switchableClass);
+                this.collection[nextElementIndex].classList.remove(this.switchableClass);
+            }
+        }
+
+        slideLeft() {
+            var currentElementIndex = 0;
+            var nextElementIndex = this.collection.length - 1;
+
+            if (this.classActivate) {
+                [].forEach.call(collection, (element, i) => {
+                    if (element.classList.contains(this.switchableClass)){
+                        currentElementIndex = i;
+                    }
+                })
+
+            } else {
+                [].forEach.call(this.collection, (element, i) => {
+                    if (!element.classList.contains(this.switchableClass)){
+                        currentElementIndex = i;
+                    }
+                });
+            }
+
+            if (currentElementIndex !== 0) {
+                nextElementIndex = currentElementIndex - 1;
+            }
+
+            if(this.classActivate) {
+                this.collection[currentElementIndex].classList.remove(this.switchableClass);
+                this.collection[nextElementIndex].classList.add(this.switchableClass);
+            } else {
+                this.collection[currentElementIndex].classList.add(this.switchableClass);
+                this.collection[nextElementIndex].classList.remove(this.switchableClass);
+            }
+
+        }
+    }
+
+    function runPricelistActiveSwitch () {
+        var joinBtns = document.querySelectorAll('.box-btn button');
+        var boxWrappers = document.querySelectorAll('.box-wrapper');
+
+        [].forEach.call(joinBtns, function(button) {
+            button.addEventListener('click', function(e) {
+                switchClass('active', button.parentElement.parentElement.parentElement, boxWrappers );
+            });
+        })
+    }
+
+    function runPriceListSlider () {
+        var boxWrappers = document.querySelectorAll('.box-wrapper');
+        var rightBtn = document.getElementById("pricelist-right-btn");
+        var leftBtn = document.getElementById("pricelist-left-btn");
+
+        var slider = new Slider(boxWrappers, 'visuallyhidden', false);
+
+        rightBtn.addEventListener('click', slider.slideRight.bind(slider));
+        leftBtn.addEventListener('click', slider.slideLeft.bind(slider));
+
+    }
+
+    showBoxWrappersOnBigDevices(getInitialWidth());
+    toggleWrappersVisibility();
+    runPricelistActiveSwitch();
+    runPriceListSlider();
+
+
 });
